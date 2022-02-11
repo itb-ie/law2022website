@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table With Button</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+             document.querySelectorAll('button').forEach(function(button) {
+                button.onclick = function() {
+                    document.querySelector('table').style.border = button.dataset.border;
+                };
+            });
+
+            document.querySelector('form').onkeyup = function() {
+                c1 = document.querySelector('#country').value
+                c2 = document.querySelector('#mountain').value
+                c3 = document.querySelector('#height').value
+
+                if (c1.length && c2.length && c3.length){
+                    document.querySelector('#submit').disabled = false;
+                } else {
+                    document.querySelector('#submit').disabled = true;
+                }
+            };
+
+            document.querySelector('form').onsubmit = function() {
+
+                c1 = document.querySelector('#country').value;
+                c2 = document.querySelector('#mountain').value;
+                c3 = document.querySelector('#height').value;
+
+                let tr = document.createElement('tr');
+                let td1 = document.createElement('td');
+                td1.innerHTML = c1;
+                let td2 = document.createElement('td');
+                td2.innerHTML = c2;
+                let td3 = document.createElement('td');
+                td3.innerHTML = c3;
+                tr.append(td1);
+                tr.append(td2);
+                tr.append(td3);
+
+                document.querySelector('table').append(tr);
+                document.querySelector('#country').value = "";
+                document.querySelector('#mountain').value = "";
+                document.querySelector('#height').value = "";
+                document.querySelector('#submit').disabled = true;
+
+                return false;
+            };
+
+        });
+
+
+    </script>
+</head>
+<body>
+    <h1>Tallest Mountains</h1>
+    <a href="https://en.wikipedia.org/wiki/List_of_elevation_extremes_by_country">Source of Information</a>
+    <table class="table_style" >
+        <tr class="table-head">
+            <th>Country</th>
+            <th> Name of Mountain</th>
+            <th>Height</th>
+        </tr>
+        <tr>
+            <td>Canada</td>
+            <td>Mount Logan</td>
+            <td>19,551 ft</td>
+        </tr>
+        <tr>
+            <td>United States</td>
+            <td>Denali</td>
+            <td>20,310 ft</td>
+        </tr>
+        <tr>
+            <td>Spain</td>
+            <td> Teide</td>
+            <td>12,188 ft</td>
+        </tr>
+        <tr>
+            <td>China</td>
+            <td>Everest</td>
+            <td>29,029 ft</td>
+        </tr>
+        <tr>
+            <td>Japan</td>
+            <td>Fuji</td>
+            <td>12,388 ft</td>
+        </tr>
+
+    </table>
+    <div>
+
+
+    <button data-border="3px solid red" data-size="60px" id="red">Red</button>
+    <button data-border="4px solid green" data-size="40px" id="green">Green</button>
+    <button data-border="4px solid blue" data-size="20px" id="blue">Blue</button>
+
+
+     <h3>Please add a new mountain here</h3>
+    <form>
+        <input type="text" id="country" placeholder="Country" autofocus>
+        <input type="text" id="mountain" placeholder="Mountain">
+        <input type="text" id="height" placeholder="Height">
+        <input type="submit" id="submit" value="Add to Table" disabled="true">
+    </form>
+</body>
+
+</html>
