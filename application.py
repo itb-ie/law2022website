@@ -38,5 +38,6 @@ def hello_name(name):
 def show_template():
     return render_template("mountains.html")
 
+
 if __name__ == "__main__":
     app.run(debug=True)
